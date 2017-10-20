@@ -21,7 +21,12 @@ public class JsonController {
 		if (StringUtils.isNoneEmpty(name, totalAmount, interest, repaymentMonthly)) {
 			repaymentScheduleData = new CalcuRepayment().of(name, Double.valueOf(totalAmount), Double.valueOf(interest),
 					Double.valueOf(repaymentMonthly));
+		}else {
+			repaymentScheduleData = new RepaymentScheduleData<List<Detail>>();
+//			repaymentScheduleData.name="";
+//			repaymentScheduleData.data=new ArrayList<Detail>();			
 		}
+		
 		return repaymentScheduleData;
 	}
 }
