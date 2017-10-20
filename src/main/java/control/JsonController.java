@@ -1,10 +1,11 @@
-package com.saxon.util;
+package control;
 
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.saxon.util.CalcuRepayment;
 import com.saxon.util.model.Detail;
 import com.saxon.util.model.RepaymentScheduleData;
 
