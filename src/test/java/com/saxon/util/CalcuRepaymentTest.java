@@ -22,7 +22,7 @@ public class CalcuRepaymentTest {
 		assertNotNull(result);
 		assertEquals(result.data.size(), 47);
 	}
-	
+
 	@Test
 	public void testOf2() {
 
@@ -31,6 +31,16 @@ public class CalcuRepaymentTest {
 		assertNotNull(result);
 		assertEquals(result.data.size(), 11);
 	}
-	
-	
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testOf3() {
+
+		new CalcuRepayment().of("jackluo", 10000, 0.12, 100);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testOf4() {
+
+		new CalcuRepayment().of("jackluo", 10000, 0.12, 99);
+	}
 }
