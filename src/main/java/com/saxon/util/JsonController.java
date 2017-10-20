@@ -9,7 +9,7 @@ import com.saxon.util.model.Detail;
 import com.saxon.util.model.RepaymentScheduleData;
 
 @RestController
-public class HelloController {
+public class JsonController {
 
 	@RequestMapping("/getDemo")
 	public RepaymentScheduleData<List<Detail>> getDemo() {

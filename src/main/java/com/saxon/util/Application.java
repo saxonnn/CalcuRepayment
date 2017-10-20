@@ -6,10 +6,10 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @SpringBootApplication
-public class UtilApplication extends WebMvcConfigurerAdapter {
+public class Application extends WebMvcConfigurerAdapter {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UtilApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 	@Override

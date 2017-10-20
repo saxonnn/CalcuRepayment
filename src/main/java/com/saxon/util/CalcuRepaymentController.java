@@ -17,10 +17,10 @@ import com.saxon.util.model.RepaymentScheduleData;
 
 @Controller
 @RequestMapping("/calcuRepayment")
-public class UtilController {
+public class CalcuRepaymentController {
 
 	@Autowired
-	public UtilController() {
+	public CalcuRepaymentController() {
 
 	}
 
@@ -41,7 +41,7 @@ public class UtilController {
 		System.out.println(formData.toString());
 
 	     if (bindingResult.hasErrors()) {
-	    	 	System.out.println("XXXXXXXXXXXXXXXX");
+	    	 	System.out.println("has errors");
 	            return "calcuRepayment";
 	        }
 	     
