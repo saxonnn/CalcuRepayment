@@ -1,42 +1,145 @@
-<html>
+<!doctype html>
+<html lang="zh-CN">
   <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Repayment List</title>
     <link rel="stylesheet" th:href="@{/style.css}"></link>
+    <link rel="stylesheet" href="http://cdn.staticfile.org/normalize/3.0.1/normalize.min.css" type="text/css" />
+    
+    <script type="text/javascript">
+//auto expand textarea
+function adjust_textarea(h) {
+    h.style.height = "20px";
+    h.style.height = (h.scrollHeight)+"px";
+}
+</script>
   </head>
 
   <body>    
-    <div th:unless="${#lists.isEmpty(repaymentScheduleData)}">
+  
+  <style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-yw4l{vertical-align:top}
+
+.form-style-4{
+    width: 450px;
+    font-size: 16px;
+    background: #495C70;
+    padding: 30px 30px 15px 30px;
+    border: 5px solid #53687E;
+}
+.form-style-4 input[type=submit],
+.form-style-4 input[type=button],
+.form-style-4 input[type=text],
+.form-style-4 input[type=email],
+.form-style-4 textarea,
+.form-style-4 label
+{
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 16px;
+    color: #fff;
+
+}
+.form-style-4 label {
+    display:block;
+    margin-bottom: 10px;
+}
+.form-style-4 label > span{
+    display: inline-block;
+    float: left;
+    width: 150px;
+}
+.form-style-4 input[type=text],
+.form-style-4 input[type=email] 
+{
+    background: transparent;
+    border: none;
+    border-bottom: 1px dashed #83A4C5;
+    width: 275px;
+    outline: none;
+    padding: 0px 0px 0px 0px;
+    font-style: italic;
+}
+.form-style-4 textarea{
+    font-style: italic;
+    padding: 0px 0px 0px 0px;
+    background: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 1px dashed #83A4C5;
+    width: 275px;
+    overflow: hidden;
+    resize:none;
+    height:20px;
+}
+
+.form-style-4 textarea:focus, 
+.form-style-4 input[type=text]:focus,
+.form-style-4 input[type=email]:focus,
+.form-style-4 input[type=email] :focus
+{
+    border-bottom: 1px dashed #D9FFA9;
+}
+
+.form-style-4 input[type=submit],
+.form-style-4 input[type=button]{
+    background: #576E86;
+    border: none;
+    padding: 8px 10px 8px 10px;
+    border-radius: 5px;
+    color: #A8BACE;
+}
+.form-style-4 input[type=submit]:hover,
+.form-style-4 input[type=button]:hover{
+background: #394D61;
+}
+
+</style>
+
+    <div>
+    <h3>月还款计算器</h3>
+    <form class="form-style-4"  method="POST" action="#" th:action="@{/calcuRepayment}" th:object="${formData}" >
+      <label for="name">借款人:</label>
+        <input type="text" name="name"  /><br/>
+        <label for="date" >借款日期:</label>
+        <input type="date" name="date" /><br/>
+      <label for="totalAmount">借款总金额:</label>
+        <input type="number" name="totalAmount" /><br/>
+      
+      <label for="interestRate">利率:</label>
+        <input type="number" name="interestRate" /><br/>
+      <label for="repaymentMonthly">月还款额:</label>
+        <input type="number" name="repaymentMonthly" /><br/><br/>
+     
+      <input type="submit"></input>
+    </form>
+    </div>
+  
+  
+    <div align="center" th:unless="${#lists.isEmpty(repaymentScheduleData)}">
     <h2><span th:text="${repaymentScheduleData.name}">index</span>'s List</h2>
-      <dl th:each="item : ${repaymentScheduleData.data}">
-        <dt class="itemHeadline">
-          <span th:text="${item.index}">index</span> 
-          <span th:text="${item.date}">date</span>
-          <span th:text="${item.totalAmount}">totalAmount</span>
-          <span th:text="${item.interest}">interest</span>
-          <span th:text="${item.balance}">balance</span>
-        </dt>
-      </dl>
+    
+    <table class="tg">
+    <tr><th>No.</th><th>还款日</th><th>总金额</th><th>应还利息</th><th>剩余本息</th></tr>
+    <dl th:each="item : ${repaymentScheduleData.data}">
+  <tr>
+    <th class="tg-yw4l"><span th:text="${item.index}">index</span></th>
+    <th class="tg-yw4l"><span th:text="${item.date}">date</span></th>
+    <th class="tg-yw4l"><span th:text="${item.totalAmount}">totalAmount</span></th>
+    <th class="tg-yw4l"><span th:text="${item.interest}">interest</span></th>
+    <th class="tg-yw4l"><span th:text="${item.balance}">balance</span></th>
+  </tr>
+</dl>
+</table>
+      
     </div>
     <div th:if="${#lists.isEmpty(repaymentScheduleData)}">
       <p>You have no items in your item list</p>
     </div>
-
-    
     <hr/>
-    
-    <h3>Repayment</h3>
-    <form method="POST" action="#" th:action="@{/calcuRepayment}" th:object="${formData}" >
-      <label for="name">name:</label>
-        <input type="text" name="name" size="15"></input><br/>
-      <label for="totalAmount">totalAmount:</label>
-        <input type="text" name="totalAmount" size="15"></input><br/>
-      <label for="interestRate">interestRate:</label>
-        <input type="text" name="interestRate" size="15"></input><br/>
-      <label for="repaymentMonthly">repaymentMonthly:</label>
-        <input type="text" name="repaymentMonthly" size="15"></input><br/>
-     
-      <input type="submit"></input>
-    </form>
+
     
   </body>
 </html>
