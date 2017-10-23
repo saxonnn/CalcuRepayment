@@ -27,11 +27,11 @@ public class CalcuRepaymentController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String showList(String name, String totalAmount, String interest, String repaymentMonthly, Model model) {
+	public String showList(String name, String date,String totalAmount, String interest, String repaymentMonthly, Model model) {
 
 		RepaymentScheduleData<List<Detail>> repaymentScheduleData = null;
 		if (StringUtils.isNoneEmpty(name, totalAmount, interest, repaymentMonthly)) {
-			repaymentScheduleData = new CalcuRepayment().of(name, Double.valueOf(totalAmount), Double.valueOf(interest)/100,
+			repaymentScheduleData = new CalcuRepayment().of(name, date,Double.valueOf(totalAmount), Double.valueOf(interest)/100,
 					Double.valueOf(repaymentMonthly));
 			model.addAttribute("repaymentScheduleData", repaymentScheduleData);
 		} 
@@ -47,8 +47,8 @@ public class CalcuRepaymentController {
 	            return "calcuRepayment";
 	        }
 	    String name=URLEncoder.encode(formData.getName(),"UTF-8"); 
-		String str = String.format("redirect:/calcuRepayment?name=%s&totalAmount=%s&interest=%s&repaymentMonthly=%s",
-				name, formData.getTotalAmount(), formData.getInterestRate(),
+		String str = String.format("redirect:/calcuRepayment?name=%s&date=%s&totalAmount=%s&interest=%s&repaymentMonthly=%s",
+				name,formData.getDate(),formData.getTotalAmount(), formData.getInterestRate(),
 				formData.getRepaymentMonthly());
 		System.out.println(str);
 		return str;

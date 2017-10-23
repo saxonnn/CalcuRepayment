@@ -14,12 +14,12 @@ import com.saxon.util.model.RepaymentScheduleData;
 public class JsonController {
 
 	@RequestMapping("/repayment")
-	public RepaymentScheduleData<List<Detail>> repayment(String name, String totalAmount, String interest,
+	public RepaymentScheduleData<List<Detail>> repayment(String name, String date,String totalAmount, String interest,
 			String repaymentMonthly, Model model) {
 
 		RepaymentScheduleData<List<Detail>> repaymentScheduleData = null;
 		if (StringUtils.isNoneEmpty(name, totalAmount, interest, repaymentMonthly)) {
-			repaymentScheduleData = new CalcuRepayment().of(name, Double.valueOf(totalAmount), Double.valueOf(interest),
+			repaymentScheduleData = new CalcuRepayment().of(name,date, Double.valueOf(totalAmount), Double.valueOf(interest),
 					Double.valueOf(repaymentMonthly));
 		}else {
 			repaymentScheduleData = new RepaymentScheduleData<List<Detail>>();

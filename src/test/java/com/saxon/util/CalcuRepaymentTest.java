@@ -19,7 +19,7 @@ public class CalcuRepaymentTest {
 	public void testOf1() {
 
 		CalcuRepayment instance = new CalcuRepayment();
-		RepaymentScheduleData<List<Detail>> result = instance.of("saxon", 400_000, 0.13, 11_000);
+		RepaymentScheduleData<List<Detail>> result = instance.of("saxon","2017-07-03", 400_000, 0.13, 11_000);
 		assertNotNull(result);
 		assertEquals(result.data.size(), 47);
 	}
@@ -28,7 +28,7 @@ public class CalcuRepaymentTest {
 	public void testOf2() {
 
 		CalcuRepayment instance = new CalcuRepayment();
-		RepaymentScheduleData<List<Detail>> result = instance.of("jackluo", 10000, 0.12, 1000);
+		RepaymentScheduleData<List<Detail>> result = instance.of("jackluo","2016-07-03", 10000, 0.12, 1000);
 		assertNotNull(result);
 		assertEquals(result.data.size(), 11);
 	}
@@ -36,12 +36,12 @@ public class CalcuRepaymentTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testOf3() {
 
-		new CalcuRepayment().of("jackluo", 10000, 0.12, 100);
+		new CalcuRepayment().of("jackluo", "2017-07-03",10000, 0.12, 100);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testOf4() {
 
-		new CalcuRepayment().of("jackluo", 10000, 0.12, 99);
+		new CalcuRepayment().of("jackluo", "2017-07-03",10000, 0.12, 99);
 	}
 }

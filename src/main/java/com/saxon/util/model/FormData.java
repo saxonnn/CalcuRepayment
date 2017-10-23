@@ -6,7 +6,9 @@ public class FormData {
 
 	@Size(min=5, max=10)
 	private String name;
-
+	
+	private String date;
+	
 	@Size(min=1, max=10)
 	private String totalAmount;
 
@@ -54,5 +56,13 @@ public class FormData {
 		sb.append(" name:").append(name).append(" totalAmount:").append(totalAmount).append(" interestRate:")
 				.append(interestRate).append(" repaymentMonthly:").append(repaymentMonthly);
 		return sb.toString();
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 }
