@@ -108,11 +108,15 @@
 <div  align="center" class="form-style-2">
 	<div class="form-style-2-heading" align="center">月还款计算器</div>
     <form method="POST" action="#" th:action="@{/calcuRepayment}" th:object="${formData}" accept-charset="utf-8">      
-		<label for="name"><span>借款人姓名</span><input type="text" class="input-field" name="name" value="" /></label>
-		<label for="date"><span>借款日期<span class="required">*</span></span><input type="date" class="input-field" name="date" value="" /></label>
-		<label for="totalAmount"><span>借款总金额<span class="required">*</span></span><input type="number" class="input-field" name="totalAmount" value="" /></label>
-		<label for="interestRate"><span>利率%<span class="required">*</span></span><input type="number" class="input-field" name="interestRate" value="" /></label>
-		<label for="repaymentMonthly"><span>月还款额<span class="required">*</span></span><input type="number" class="input-field" name="repaymentMonthly" value="" /></label>
+		<label for="name"><span>借款人姓名</span><input type="text" class="input-field" th:field="*{name}" /></label>
+		<label for="date"><span>借款日期<span class="required">*</span></span><input type="date" class="input-field" th:field="*{date}"  /></label>
+		<p th:if="${#fields.hasErrors('date')}" th:errors="*{date}" />
+		<label for="totalAmount"><span>借款总金额<span class="required">*</span></span><input type="number" class="input-field" th:field="*{totalAmount}"  /></label>
+		<p th:if="${#fields.hasErrors('totalAmount')}" th:errors="*{totalAmount}" />
+		<label for="interestRate"><span>利率%<span class="required">*</span></span><input type="number" class="input-field" th:field="*{interestRate}"  /></label>
+		<p th:if="${#fields.hasErrors('interestRate')}" th:errors="*{interestRate}" />
+		<label for="repaymentMonthly"><span>月还款额<span class="required">*</span></span><input type="number" class="input-field" th:field="*{repaymentMonthly}"  /></label>
+		<p th:if="${#fields.hasErrors('repaymentMonthly')}" th:errors="*{repaymentMonthly}" />
 		<input type="submit" value="计算"></input>
     </form>
 </div>

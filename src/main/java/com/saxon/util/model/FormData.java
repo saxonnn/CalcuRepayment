@@ -4,15 +4,15 @@ import javax.validation.constraints.Size;
 
 public class FormData {
 
-	@Size(min=5, max=10)
 	private String name;
 	
+	@Size(min=10, max=10)
 	private String date;
 	
 	@Size(min=1, max=10)
 	private String totalAmount;
 
-	@Size(min=1, max=5)
+	@Size(min=1, max=3)
 	private String interestRate;
 	
 	@Size(min=1, max=10)

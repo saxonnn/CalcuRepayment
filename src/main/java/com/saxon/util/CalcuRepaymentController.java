@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,19 +41,23 @@ public class CalcuRepaymentController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String queryList(@ModelAttribute("formData") FormData formData,BindingResult bindingResult, Model model) throws UnsupportedEncodingException {
-		System.out.println(formData.toString());
+	public String queryList(@Valid FormData formData, BindingResult bindingResult, Model model) throws UnsupportedEncodingException {
 
-	     if (bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 	    	 	System.out.println("has errors");
+	    	 	System.out.println(bindingResult);
 	            return "calcuRepayment";
 	        }
-	    String name=URLEncoder.encode(formData.getName(),"UTF-8"); 
-		String str = String.format("redirect:/calcuRepayment?name=%s&date=%s&totalAmount=%s&interest=%s&repaymentMonthly=%s",
-				name,formData.getDate(),formData.getTotalAmount(), formData.getInterestRate(),
-				formData.getRepaymentMonthly());
-		System.out.println(str);
-		return str;
+//	    String name=URLEncoder.encode(formData.getName(),"UTF-8"); 
+//		String str = String.format("redirect:/calcuRepayment?name=%s&date=%s&totalAmount=%s&interest=%s&repaymentMonthly=%s",
+//				name,formData.getDate(),formData.getTotalAmount(), formData.getInterestRate(),
+//				formData.getRepaymentMonthly());
+		
+		RepaymentScheduleData<List<Detail>> repaymentScheduleData = new CalcuRepayment().of(
+				formData.getName(), formData.getDate(),Double.valueOf(formData.getTotalAmount()), Double.valueOf(formData.getInterestRate())/100,
+					Double.valueOf(formData.getRepaymentMonthly()));
+			model.addAttribute("repaymentScheduleData", repaymentScheduleData);
+	     return "calcuRepayment";
 	}
 
 }
