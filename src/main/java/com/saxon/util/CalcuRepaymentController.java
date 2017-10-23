@@ -1,5 +1,7 @@
 package com.saxon.util;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -29,7 +31,7 @@ public class CalcuRepaymentController {
 
 		RepaymentScheduleData<List<Detail>> repaymentScheduleData = null;
 		if (StringUtils.isNoneEmpty(name, totalAmount, interest, repaymentMonthly)) {
-			repaymentScheduleData = new CalcuRepayment().of(name, Double.valueOf(totalAmount), Double.valueOf(interest),
+			repaymentScheduleData = new CalcuRepayment().of(name, Double.valueOf(totalAmount), Double.valueOf(interest)/100,
 					Double.valueOf(repaymentMonthly));
 			model.addAttribute("repaymentScheduleData", repaymentScheduleData);
 		} 
@@ -37,16 +39,16 @@ public class CalcuRepaymentController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String queryList(@ModelAttribute("formData") FormData formData,BindingResult bindingResult, Model model) {
+	public String queryList(@ModelAttribute("formData") FormData formData,BindingResult bindingResult, Model model) throws UnsupportedEncodingException {
 		System.out.println(formData.toString());
 
 	     if (bindingResult.hasErrors()) {
 	    	 	System.out.println("has errors");
 	            return "calcuRepayment";
 	        }
-	     
+	    String name=URLEncoder.encode(formData.getName(),"UTF-8"); 
 		String str = String.format("redirect:/calcuRepayment?name=%s&totalAmount=%s&interest=%s&repaymentMonthly=%s",
-				formData.getName(), formData.getTotalAmount(), formData.getInterestRate(),
+				name, formData.getTotalAmount(), formData.getInterestRate(),
 				formData.getRepaymentMonthly());
 		System.out.println(str);
 		return str;
