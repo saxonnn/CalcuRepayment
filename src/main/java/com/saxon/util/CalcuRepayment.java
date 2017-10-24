@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.saxon.util.model.Detail;
