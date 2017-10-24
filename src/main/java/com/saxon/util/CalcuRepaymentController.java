@@ -29,14 +29,14 @@ public class CalcuRepaymentController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String showList(String name, String date,String totalAmount, String interest, String repaymentMonthly, Model model) {
+	public String showList(@Valid FormData formData, Model model) {
 
 		RepaymentScheduleData<List<Detail>> repaymentScheduleData = null;
-		if (StringUtils.isNoneEmpty(name, totalAmount, interest, repaymentMonthly)) {
-			repaymentScheduleData = new CalcuRepayment().of(name, date,Double.valueOf(totalAmount), Double.valueOf(interest)/100,
-					Double.valueOf(repaymentMonthly));
-			model.addAttribute("repaymentScheduleData", repaymentScheduleData);
+		if (StringUtils.isNoneEmpty(formData.getDate(), formData.getTotalAmount(), formData.getInterestRate(), formData.getRepaymentMonthly())) {
+			repaymentScheduleData = new CalcuRepayment().of(formData.getName(), formData.getDate(),Double.valueOf(formData.getTotalAmount()), Double.valueOf(formData.getInterestRate())/100,
+					Double.valueOf(formData.getRepaymentMonthly()));
 		} 
+		model.addAttribute("repaymentScheduleData", repaymentScheduleData);
 		return "calcuRepayment";
 	}
 
